@@ -1,0 +1,7 @@
+#base=js
+
+app.js
+treeCtrl.js
+settingsCtrl.js
+resolveCtrl.js
+templateCtrl.js

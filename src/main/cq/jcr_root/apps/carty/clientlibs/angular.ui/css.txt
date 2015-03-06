@@ -1,0 +1,2 @@
+css/xeditable.css
+css/angular-ui-tree.min.css

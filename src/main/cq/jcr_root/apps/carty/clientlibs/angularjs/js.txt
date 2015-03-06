@@ -1,0 +1,3 @@
+angular.min.js
+angular-sanitize.min.js
+angular-local-storage.min.js

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Carty"
+        sling:resourceType="carty/components/page">
+        <templates
+            jcr:primaryType="nt:unstructured">
+            <default
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Standard domain mapping">
+                    <http jcr:primaryType="sling:Folder">
+                        <_domainName_
+                            jcr:primaryType="sling:Mapping"
+                            sling:internalRedirect="[_contentRoot_]">
+                            <home
+                                jcr:primaryType="sling:Mapping"
+                                sling:internalRedirect="[_contentRoot_.html]"
+                                sling:match="$"/>
+                            <redirect
+                                jcr:primaryType="sling:Mapping"
+                                sling:internalRedirect="[_contentRoot_/$1,$1]"
+                                sling:match="(.+)$"/>
+                        </_domainName_>
+                    </http>
+            </default>
+        </templates>
+    </jcr:content>
+    <api
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="carty/components/cartyApi"/>
+</jcr:root>

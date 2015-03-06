@@ -1,0 +1,2 @@
+js/xeditable.js
+js/angular-ui-tree.js
