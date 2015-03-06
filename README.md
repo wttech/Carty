@@ -2,6 +2,8 @@
  
 # Carty
 
+<img src="http://cognifide.github.io/Carty/screenshots/carty-main.png" height="300"/>
+
 ## Purpose
 
 Carty will be an intuitive tool that allows to configure and test mappings, but will
