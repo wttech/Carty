@@ -12,7 +12,7 @@ Carty is an integrated tool to create, edit, review and test Sling mappings for 
 * mapping editor - edit, move, create and delete sling:Mapping entries,
 * tester - check what will be the result of the map or resolve operation,
 * highlighter - Carty explains which entries have been applied to a specific part of the tested URL,
-* configuartion - you may choose any path to create mappings, it doesn't have to be the mapping root currently set in the Resource Resolver
+* configuration - you may choose any path to create mappings, it doesn't have to be the mapping root currently set in the Resource Resolver
  
 ## Prerequisites
  
