@@ -63,7 +63,7 @@
     </div>
   </div>
 </div>
-<ul ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}">
+<ul ui-tree-nodes="options" ng-model="item.items" ng-class="{angular-ui-tree-hidden: collapsed}">
   <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'"></li>
 </ul>
   </script>
