@@ -105,8 +105,8 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
       slingPost(mapping.path, {':operation' : 'delete'}).success(loadMappings);
     };
 
-    $scope.toggle = function(scope) {
-      scope.toggle();
+    $scope.toggleMapping = function(mapping) {
+      mapping.full = !mapping.full;
     };
 
     $scope.checkNewName = function(mapping, newName) {

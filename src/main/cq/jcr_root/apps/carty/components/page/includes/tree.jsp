@@ -1,7 +1,6 @@
 <div ng-controller="TreeCtrl">
   <script type="text/ng-template" id="items_renderer.html">
-<div ui-tree-handle class="mapping-tree">
-  <button class="left button" data-nodrag ng-click="toggle(this)" ng-class="{'icon-treeexpand': collapsed, 'icon-treecollapse': !collapsed}" />
+<div ui-tree-handle class="mapping-tree" ng-if="!item.isMapping">
   <div class="right">
     <button class="button icon-add" data-nodrag ng-click="newSubItem(item)" />
     <button class="button icon-delete" data-nodrag ng-click="removeMapping(item)" />
@@ -9,15 +8,45 @@
 
   <div class="mapping-entry">
     <p>
-      <span editable-text="item.name" e-form="nameForm" buttons="no" onbeforesave="checkNewName(item, $data)" onaftersave="rename(item)" onshow="disableDrag()"
-        onhide="enableDrag()" blur="submit"> {{item.name}} </span>
+      <span editable-text="item.name" e-form="nameForm" buttons="no" onbeforesave="checkNewName(item, $data)" onaftersave="rename(item)" onshow="disableDrag()" onhide="enableDrag()" blur="submit">
+        {{item.name}}
+      </span>
       <button class="button icon-edit" data-nodrag ng-click="nameForm.$show()" ng-show="!nameForm.$visible" />
       <button class="button icon-check" data-nodrag ng-click="nameForm.$submit()" ng-show="nameForm.$visible" />
       <button class="button icon-close" data-nodrag ng-click="nameForm.$cancel()" ng-show="nameForm.$visible" />
     </p>
+  </div>
+</div>
 
-    <div class="mapping-definition">
-      <dl ng-if="item.isMapping">
+<div ui-tree-handle class="mapping-tree" ng-if="item.isMapping">
+  <button class="left toggle button" data-nodrag ng-click="toggleMapping(this)" ng-class="{'icon-treeexpand': !full, 'icon-treecollapse': full}" />
+
+  <div class="right">
+    <button class="button icon-add" data-nodrag ng-click="newSubItem(item)" />
+    <button class="button icon-delete" data-nodrag ng-click="removeMapping(item)" />
+  </div>
+
+  <div class="mapping-entry">
+    <p>
+      <span class="mapping-name" ng-class="{short: !full}">
+        <span editable-text="item.name" e-form="nameForm" buttons="no" onbeforesave="checkNewName(item, $data)" onaftersave="rename(item)" onshow="disableDrag()" onhide="enableDrag()" blur="submit">
+          {{item.name}}
+        </span>
+        <button class="button icon-edit" data-nodrag ng-click="nameForm.$show()" ng-show="!nameForm.$visible && full" />
+      </span>
+
+      <span class="short-mapping-definition" ng-show="!full">
+          <span ng-if="item.match">{{item.match}}</span>
+          <i ng-if="!item.match">{{item.name}}</i>
+          &rarr; [{{item.internalRedirect.join(', ')}}]
+      </span>
+
+      <button class="button icon-check" data-nodrag ng-click="nameForm.$submit()" ng-show="nameForm.$visible" />
+      <button class="button icon-close" data-nodrag ng-click="nameForm.$cancel()" ng-show="nameForm.$visible" />
+    </p>
+
+    <div class="mapping-definition" ng-show="full">
+      <dl>
         <dt>match</dt>
         <dd>
           <span editable-text="item.match" e-form="matchForm" buttons="no" onaftersave="saveMapping(item)" onshow="disableDrag()" onhide="enableDrag()"
@@ -63,7 +92,7 @@
     </div>
   </div>
 </div>
-<ul ui-tree-nodes="options" ng-model="item.items" ng-class="{angular-ui-tree-hidden: collapsed}">
+<ul ui-tree-nodes="options" ng-model="item.items">
   <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'"></li>
 </ul>
   </script>
