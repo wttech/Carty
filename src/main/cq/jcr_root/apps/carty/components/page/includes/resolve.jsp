@@ -4,7 +4,7 @@
       <h4>Path</h4>
       <input type="text" ng-model="form.path" />
     </div>
-    <div class="form-row" ng-if="form.showCustomHost">
+    <!--div class="form-row" ng-if="form.showCustomHost">
       <h4>Custom host</h4>
       <input type="text" ng-model="form.host" placeholder="geometrixx.com"/>
     </div>
@@ -14,7 +14,7 @@
         <input type="checkbox" ng-model="form.showCustomHost" />
         <span>Use custom host for the "Map" operation</span>
       </label>  
-    </div>
+    </div-->
     <div class="form-row">
       <div class="form-left-cell">&nbsp;</div>
       <button type="button" class="primary" ng-click="resolve()">Resolve</button>
