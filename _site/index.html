@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Carty | Cognifide mapping tool</title>
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="carty" href="/feed.xml">
+</head>
+
+<body>
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<img src="assets/media/logo-carty.png"/>
+    </h3>
+</header>
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/Cognifide/Carty">
+				<i class="fa fa-github fa-lg"></i>
+			</a>
+		</li>
+		<li>
+			<a class="btn btn-default btn-sm" href="">
+				<i class="fa fa-download fa-lg"></i>
+			</a>
+		</li>
+	</ul>
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1> </h1>
+</div>
+
+
+
+<article class="home">
+
+  <div>
+    
+    <h1 id="what-for">What for</h1>
+
+<p>Carty is an integrated tool to create, edit, review and test Sling mappings for Adobe CQ/AEM. No more switching between Felix Console and CRX DE tabs to check if the mappings finally work as expected. No more guessing why given URL resolves to a content path or vice versa - Carty will tell exactly which entries has been applied to a given path and why. You may use an automatic mapping generator (just enter domain and content path) or manually edit your configuration if you need more precise control.</p>
+
+<h1 id="features">Features</h1>
+
+<ul>
+  <li>mapping generator - enter domain and the content path and Carty will take of everything else,</li>
+  <li>mapping editor - edit, move, create and delete sling:Mapping entries,</li>
+  <li>tester - check what will be the result of the map or resolve operation,</li>
+  <li>highlighter - Carty explains which entries have been applied to a specific part of the tested URL,</li>
+  <li>configuration - you may choose any path to create mappings, it doesn’t have to be the mapping root currently set in the Resource Resolver</li>
+</ul>
+
+<h1 id="installation">Installation</h1>
+
+<p>Download the package and install it via the CQ package manager or compile and install from sources:</p>
+
+<pre><code>mvn clean package crx:install
+</code></pre>
+
+<p>Optionally, you may set Maven properties: <code>instance.url</code>, <code>instance.login</code> and <code>instance.password</code>.</p>
+
+<h1 id="usage">Usage</h1>
+
+<p>Find Carty in the <em>Tools</em> menu (<code>/miscadmin</code>) or enter the Carty path directly: <code>/etc/carty.html</code>.</p>
+
+    
+  </div>
+
+</article>
+
+<hr/>
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2015 carty with Jekyll. Theme: <a href="https://github.com/dbtek/dbyll">dbyll</a> by dbtek.
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

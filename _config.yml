@@ -1,0 +1,14 @@
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: pygments
+markdown: kramdown
+
+name: carty
+title: Carty | Cognifide mapping tool
+github: Cognifide/Carty
+logo: assets/media/logo-carty.png
+
+BASE_PATH:
