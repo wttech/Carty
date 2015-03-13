@@ -12,4 +12,4 @@ github: Cognifide/Carty
 logo: assets/media/logo-carty.png
 download: packages/carty-1.0-SNAPSHOT.zip
 
-BASE_PATH:
+BASE_PATH: /Carty 
