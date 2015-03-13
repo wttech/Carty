@@ -10,5 +10,6 @@ name: carty
 title: Carty | Cognifide mapping tool
 github: Cognifide/Carty
 logo: assets/media/logo-carty.png
+download: packages/carty-1.0-SNAPSHOT.zip
 
 BASE_PATH:
