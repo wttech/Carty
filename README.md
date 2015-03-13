@@ -2,6 +2,8 @@
  
 # Carty
 
+![Carty logo](http://cognifide.github.io/Carty/assets/media/logo-carty.png)
+
 ## Purpose
 
 Carty is an integrated tool to create, edit, review and test Sling mappings for Adobe CQ/AEM. [Read more](http://cognifide.github.io/Carty/).
@@ -31,4 +33,4 @@ Find Carty under the `/miscadmin`.
 
 ## Screenshot
 
-<img src="http://cognifide.github.io/Carty/screenshots/carty-main.png" height="300"/>
+<img src="http://cognifide.github.io/Carty/assets/media/carty-screenshot.png" height="300"/>
