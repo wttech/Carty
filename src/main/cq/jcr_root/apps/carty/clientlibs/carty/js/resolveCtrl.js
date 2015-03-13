@@ -3,8 +3,7 @@
 angular.module('cartyApp')
   .controller('ResolveCtrl', function($scope, $http, $rootScope, settings, localStorageService) {
 
-    $scope.form = {};
-    $scope.form.path = localStorageService.get('carty-path');
+    $scope.form = localStorageService.get('carty-form') || {};
 
     function setMatchingPaths(data) {
       $rootScope.matchingPaths = _(data.mappings).map(function(v) {
@@ -15,7 +14,7 @@ angular.module('cartyApp')
     $scope.resolve = function() {
       $scope.resolveResult = null;
       $scope.mapResult = null;
-      localStorageService.set('carty-path', $scope.form.path);
+      localStorageService.set('carty-form', $scope.form);
 
       $http.get(settings.apiPath + '.resolve.json', {
         params: {
@@ -31,11 +30,12 @@ angular.module('cartyApp')
     $scope.map = function() {
       $scope.resolveResult = null;
       $scope.mapResult = null;
-      localStorageService.set('carty-path', $scope.form.path);
+      localStorageService.set('carty-form', $scope.form);
 
       $http.get(settings.apiPath + '.map.json', {
         params: {
           'path': $scope.form.path,
+          'host': $scope.form.host,
           'mappingsRoot': settings.mappingsRoot
         }
       }).success(function(data) {
