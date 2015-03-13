@@ -19,7 +19,7 @@
 </div>
 
 <div ui-tree-handle class="mapping-tree" ng-if="item.isMapping" ng-class="{highlighted: highlighted == item.path}">
-  <button class="left toggle button" data-nodrag ng-click="toggleMapping(this)" ng-class="{'icon-treeexpand': !full, 'icon-treecollapse': full}" />
+  <button class="left toggle button" data-nodrag ng-click="toggleMapping(item.path)" ng-class="{'icon-treeexpand': !expanded[item.path], 'icon-treecollapse': expanded[item.path]}" />
 
   <div class="right">
     <button class="button icon-add" data-nodrag ng-click="newSubItem(item)" />
@@ -28,14 +28,14 @@
 
   <div class="mapping-entry">
     <p>
-      <span class="mapping-name" ng-class="{short: !full}">
+      <span class="mapping-name" ng-class="{short: !expanded[item.path]}">
         <span editable-text="item.name" e-form="nameForm" buttons="no" onbeforesave="checkNewName(item, $data)" onaftersave="rename(item)" onshow="disableDrag()" onhide="enableDrag()" blur="submit">
           {{item.name}}
         </span>
-        <button class="button icon-edit" data-nodrag ng-click="nameForm.$show()" ng-show="!nameForm.$visible && full" />
+        <button class="button icon-edit" data-nodrag ng-click="nameForm.$show()" ng-show="!nameForm.$visible && expanded[item.path]" />
       </span>
 
-      <span class="short-mapping-definition" ng-show="!full">
+      <span class="short-mapping-definition" ng-show="!expanded[item.path]">
           <span ng-if="item.match">{{item.match}}</span>
           <i ng-if="!item.match">{{item.name}}</i>
           &rarr; [{{item.internalRedirect.join(', ')}}]
@@ -45,7 +45,7 @@
       <button class="button icon-close" data-nodrag ng-click="nameForm.$cancel()" ng-show="nameForm.$visible" />
     </p>
 
-    <div class="mapping-definition" ng-show="full">
+    <div class="mapping-definition" ng-show="expanded[item.path]">
       <dl>
         <dt>match</dt>
         <dd>

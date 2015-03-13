@@ -105,8 +105,10 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
       slingPost(mapping.path, {':operation' : 'delete'}).success(loadMappings);
     };
 
-    $scope.toggleMapping = function(mapping) {
-      mapping.full = !mapping.full;
+    $scope.expanded = {};
+
+    $scope.toggleMapping = function(path) {
+      $scope.expanded[path] = !$scope.expanded[path];
     };
 
     $scope.checkNewName = function(mapping, newName) {
@@ -122,7 +124,9 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
     $scope.rename = function(mapping) {
       var index = mapping.parent.items.indexOf(mapping);
       move(mapping, mapping.parent).success(function() {
-        reorder(mapping.parent.path + '/' + mapping.name, index)['finally'](loadMappings);
+        var newPath = mapping.parent.path + '/' + mapping.name;
+        $scope.expanded[newPath] = $scope.expanded[mapping.path];
+        reorder(newPath, index)['finally'](loadMappings);
       });
     };
 
@@ -171,7 +175,9 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
             reorder(parent.path + '/' + mapping.name, newIndex)['finally'](loadMappings);
           } else {
             move(mapping, parent).success(function() {
-              reorder(parent.path + '/' + mapping.name, newIndex)['finally'](loadMappings);
+              var newPath = parent.path + '/' + mapping.name;
+              $scope.expanded[newPath] = $scope.expanded[mapping.path];
+              reorder(newPath, newIndex)['finally'](loadMappings);
             });
           }
       }
