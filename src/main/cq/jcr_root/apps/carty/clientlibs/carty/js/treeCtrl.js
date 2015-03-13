@@ -189,5 +189,9 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
       $scope.highlighted = null;
     });
 
+    $scope.isMatchingPath = function(path) {
+      return $rootScope.matchingPaths.indexOf(path) > -1;
+    };
+
     loadMappings();
 });

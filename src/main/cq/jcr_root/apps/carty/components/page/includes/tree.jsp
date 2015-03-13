@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<div ui-tree-handle class="mapping-tree" ng-if="item.isMapping" ng-class="{highlighted: highlighted == item.path}">
+<div ui-tree-handle class="mapping-tree" ng-if="item.isMapping" ng-class="{highlighted: highlighted == item.path}" ng-show="!showOnlyMatching || isMatchingPath(item.path)">
   <button class="left toggle button" data-nodrag ng-click="toggleMapping(this)" ng-class="{'icon-treeexpand': !full, 'icon-treecollapse': full}" />
 
   <div class="right">
@@ -96,6 +96,7 @@
   <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'"></li>
 </ul>
   </script>
+
   <div ui-tree="options" data-drag-enabled="dragEnabled" callbacks="treeCallbacks">
     <ul ui-tree-nodes ng-model="mappings">
       <li ng-repeat="item in mappings" ui-tree-node ng-include="'items_renderer.html'"></li>
@@ -104,4 +105,9 @@
   <div class="alert error" ng-show="errorMessage">
     {{errorMessage}}
   </div>
+
+  <label ng-show="matchingPaths">
+    <input type="checkbox" ng-model="showOnlyMatching" />
+    <span>Show only matching</span>
+  </label>
 </div>

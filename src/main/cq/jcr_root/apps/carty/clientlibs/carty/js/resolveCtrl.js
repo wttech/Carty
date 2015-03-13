@@ -6,6 +6,12 @@ angular.module('cartyApp')
     $scope.form = {};
     $scope.form.path = localStorageService.get('carty-path');
 
+    function setMatchingPaths(data) {
+      $rootScope.matchingPaths = _(data.mappings).map(function(v) {
+        return v.mapping.path;
+      });
+    }
+
     $scope.resolve = function() {
       $scope.resolveResult = null;
       $scope.mapResult = null;
@@ -18,6 +24,7 @@ angular.module('cartyApp')
         }
       }).success(function(data) {
         $scope.resolveResult = data;
+        setMatchingPaths(data);
       });
     };
 
@@ -33,6 +40,7 @@ angular.module('cartyApp')
         }
       }).success(function(data) {
         $scope.mapResult = data;
+        setMatchingPaths(data);
       });
     };
 
