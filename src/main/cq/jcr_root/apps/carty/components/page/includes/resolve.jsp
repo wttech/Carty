@@ -2,8 +2,7 @@
   <form novalidate>
     <div class="form-row">
       <h4>Path</h4>
-      <span> <input type="text" ng-model="form.path" />
-      </span>
+      <input type="text" ng-model="form.path" />
     </div>
     <div class="form-row">
       <div class="form-left-cell">&nbsp;</div>

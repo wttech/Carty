@@ -34,9 +34,9 @@ pageContext.setAttribute("pagePath", resourceResolver.map(currentPage.getPath())
       <div class="content">
         <div class="content-container">
           <div class="content-container-inner">
-            <h1>Carty</h1>
+            <img id="logo" src="/apps/carty/clientlibs/carty/img/logo-carty.png"/>
 
-            <div class="section">
+            <div class="section resolve-map">
               <h2>Resolve & map</h2>
               <%@include file="includes/resolve.jsp" %>
             </div>
