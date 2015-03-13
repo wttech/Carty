@@ -181,5 +181,13 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
       loadMappings();
     });
 
+    $rootScope.$on('highlightMapping', function(event, path) {
+      $scope.highlighted = path;
+    });
+
+    $rootScope.$on('clearMappingHighlight', function() {
+      $scope.highlighted = null;
+    });
+
     loadMappings();
 });

@@ -51,7 +51,7 @@
           <th>path</th>
         </tr>
 
-        <tr ng-repeat="m in resolveResult.mappings">
+        <tr ng-repeat="m in resolveResult.mappings" ng-mouseenter="highlightMapping(m.mapping.path)" ng-mouseleave="clearMappingHighlight()">
           <td>{{m.mapping.name}}</td>
           <td>
           <span ng-show="m.mapping.match">{{m.mapping.match}}</span>
@@ -91,7 +91,7 @@
           <th>mapped url</th>
         </tr>
 
-        <tr ng-repeat="m in mapResult.mappings">
+        <tr ng-repeat="m in mapResult.mappings" ng-mouseenter="highlightMapping(m.mapping.path)" ng-mouseleave="clearMappingHighlight()">
           <td>{{m.mapping.name}}</td>
           <td>
             <span class="path-breakdown">

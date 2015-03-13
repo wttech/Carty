@@ -1,6 +1,6 @@
 <div ng-controller="TreeCtrl">
   <script type="text/ng-template" id="items_renderer.html">
-<div ui-tree-handle class="mapping-tree" ng-if="!item.isMapping">
+<div ui-tree-handle class="mapping-tree" ng-if="!item.isMapping" ng-class="{highlighted: highlighted == item.path}">
   <div class="right">
     <button class="button icon-add" data-nodrag ng-click="newSubItem(item)" />
     <button class="button icon-delete" data-nodrag ng-click="removeMapping(item)" />
@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<div ui-tree-handle class="mapping-tree" ng-if="item.isMapping">
+<div ui-tree-handle class="mapping-tree" ng-if="item.isMapping" ng-class="{highlighted: highlighted == item.path}">
   <button class="left toggle button" data-nodrag ng-click="toggleMapping(this)" ng-class="{'icon-treeexpand': !full, 'icon-treecollapse': full}" />
 
   <div class="right">
