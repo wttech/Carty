@@ -38,7 +38,7 @@ public class CartyMapper {
             }
         });
 
-        final AppliedMappingEntry appliedMapping = mappings.get(0);
+        final AppliedMappingEntry appliedMapping = filtered.get(0);
         final List<AppliedMappingEntry> ancestors = getAncestors(appliedMapping);
         Collections.reverse(ancestors);
         return new MapperResult(appliedMapping.getUrl(), ancestors);

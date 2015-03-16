@@ -1,6 +1,7 @@
 package com.cognifide.cq.carty.mapper;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.rmi.ServerException;
 
@@ -80,7 +81,14 @@ public class MapServlet extends SlingSafeMethodsServlet {
         if ("/".equals(prefix.substring(lastChar))) {
             prefix.deleteCharAt(lastChar);
         }
-        return prefix.toString();
+
+        final URI uri;
+        try {
+            uri = new URI(prefix.toString());
+        } catch (URISyntaxException e) {
+            return null;
+        }
+        return String.format("%s/%s", uri.getScheme(), uri.getHost());
     };
 
     private static String getNiceUrl(String url) {
