@@ -10,7 +10,7 @@
             <default
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Standard domain mapping">
-                    <http jcr:primaryType="sling:Folder">
+                    <http jcr:primaryType="sling:OrderedFolder">
                         <_domainName_
                             jcr:primaryType="sling:Mapping"
                             sling:internalRedirect="[_contentRoot_]">
