@@ -13,43 +13,71 @@ import com.cognifide.cq.carty.Mapping;
 
 public class CartyMapper {
 
-    private final String mappingsRoot;
-
-    private final ResourceResolver resolver;
+    private final Mapping root;
 
     public CartyMapper(String mappingsRoot, ResourceResolver resourceResolver) {
-        this.mappingsRoot = mappingsRoot;
-        this.resolver = resourceResolver;
+        this.root = new Mapping(resourceResolver.getResource(mappingsRoot));
     }
 
-    public MapperResult map(String path) {
-        List<AppliedMappingEntry> mappings = map(path, resolver.getResource(mappingsRoot), "");
-        Collections.sort(mappings, new Comparator<AppliedMappingEntry>() {
+    public MapperResult map(String path, String urlPrefix) {
+        final List<AppliedMappingEntry> mappings = map(path, new AppliedMappingEntry(root, "", null));
+        if (mappings.isEmpty()) {
+            return new MapperResult(path, mappings);
+        }
+
+        final List<AppliedMappingEntry> filtered;
+        if (StringUtils.isBlank(urlPrefix)) {
+            filtered = mappings;
+        } else {
+            filtered = filter(mappings, urlPrefix);
+        }
+        Collections.sort(filtered, new Comparator<AppliedMappingEntry>() {
             @Override
             public int compare(AppliedMappingEntry o1, AppliedMappingEntry o2) {
                 return o2.getMatchingInternalRedirect().length() - o1.getMatchingInternalRedirect().length();
             }
         });
 
-        final String url;
-        if (mappings.isEmpty()) {
-            url = path;
-        } else {
-            url = mappings.get(0).getUrl();
-        }
-        return new MapperResult(url, mappings);
+        final AppliedMappingEntry appliedMapping = mappings.get(0);
+        final List<AppliedMappingEntry> ancestors = getAncestors(appliedMapping);
+        Collections.reverse(ancestors);
+        return new MapperResult(appliedMapping.getUrl(), ancestors);
     }
 
-    public List<AppliedMappingEntry> map(String path, Resource parentResource, String urlPrefix) {
+    private List<AppliedMappingEntry> getAncestors(AppliedMappingEntry appliedMapping) {
+        final List<AppliedMappingEntry> ancestors = new ArrayList<AppliedMappingEntry>();
+        AppliedMappingEntry currentMapping = appliedMapping;
+        do {
+            ancestors.add(currentMapping);
+            currentMapping = currentMapping.getParent();
+        } while (currentMapping.getMapping() != root);
+        return ancestors;
+    }
+
+    private List<AppliedMappingEntry> filter(List<AppliedMappingEntry> mappings, String urlPrefix) {
+        final List<AppliedMappingEntry> filtered = new ArrayList<>();
+        for (final AppliedMappingEntry e : mappings) {
+            if (e.getUrl().startsWith(urlPrefix)) {
+                filtered.add(e);
+            }
+        }
+        if (filtered.isEmpty()) {
+            filtered.addAll(mappings);
+        }
+        return filtered;
+    }
+
+    public List<AppliedMappingEntry> map(String path, AppliedMappingEntry parent) {
         final List<AppliedMappingEntry> list = new ArrayList<AppliedMappingEntry>();
-        for (final Resource resource : parentResource.getChildren()) {
+        for (final Resource resource : parent.getMapping().getResource().getChildren()) {
             final Mapping mapping = new Mapping(resource);
-            final String url = getUrl(mapping, urlPrefix);
+            final String url = getUrl(mapping, parent.getUrl());
             if (isValidMapping(mapping)) {
-                list.addAll(findMatchingRedirects(path, mapping, url));
+                list.addAll(findMatchingRedirects(path, mapping, url, parent));
             }
             if (!url.endsWith("$")) {
-                list.addAll(map(path, resource, url));
+                final AppliedMappingEntry currentMapping = new AppliedMappingEntry(mapping, url, parent);
+                list.addAll(map(path, currentMapping));
             }
         }
         return list;
@@ -63,24 +91,27 @@ public class CartyMapper {
         } else {
             urlSuffix = mapping.getMatch();
         }
-        return String.format("%s/%s", urlPrefix, urlSuffix);
+        if (StringUtils.isBlank(urlPrefix)) {
+            return urlSuffix;
+        } else {
+            return String.format("%s/%s", urlPrefix, urlSuffix);
+        }
     }
 
     private List<AppliedMappingEntry> findMatchingRedirects(final String path, final Mapping mapping,
-            final String url) {
+            final String url, final AppliedMappingEntry parent) {
         final List<AppliedMappingEntry> list = new ArrayList<AppliedMappingEntry>();
         final boolean isFinal = url.endsWith("$");
-        final String urlWithNoDollar = StringUtils.removeEnd(url, "$");
 
         for (final String internalRedirect : mapping.getInternalRedirect()) {
             String fullUrl = null;
-            if (isFinal && path.equals(internalRedirect)) {
-                fullUrl = urlWithNoDollar;
-            } else if (path.startsWith(internalRedirect)) {
-                fullUrl = urlWithNoDollar + path.substring(internalRedirect.length());
+            if (path.equals(internalRedirect)) {
+                fullUrl = url;
+            } else if (!isFinal && path.startsWith(internalRedirect)) {
+                fullUrl = url + path.substring(internalRedirect.length());
             }
             if (fullUrl != null) {
-                list.add(new AppliedMappingEntry(mapping, internalRedirect, fullUrl));
+                list.add(new AppliedMappingEntry(mapping, internalRedirect, fullUrl, parent));
             }
         }
         return list;

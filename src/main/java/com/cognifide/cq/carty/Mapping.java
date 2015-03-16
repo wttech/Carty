@@ -22,6 +22,8 @@ public class Mapping {
 
     private final boolean schemeMapping;
 
+    private transient final Resource resource;
+
     public Mapping(final Resource resource) {
         final ValueMap map = resource.adaptTo(ValueMap.class);
         this.path = resource.getPath();
@@ -30,6 +32,7 @@ public class Mapping {
         this.internalRedirect = map.get("sling:internalRedirect", String[].class);
         this.redirect = map.get("sling:redirect", String.class);
         this.schemeMapping = Arrays.asList("http", "https").contains(resource.getName());
+        this.resource = resource;
     }
 
     public Matcher matcher(String uri) {
@@ -59,5 +62,17 @@ public class Mapping {
 
     public boolean isSchemeMapping() {
         return schemeMapping;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public String getMatchOrName() {
+        return StringUtils.defaultIfEmpty(match, name);
+    }
+
+    public boolean isFinal() {
+        return getMatchOrName().endsWith("$");
     }
 }

@@ -16,6 +16,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import static com.cognifide.cq.carty.CartyStringUtils.multiSubstring;
+
 @SlingServlet(methods = "GET", resourceTypes = "carty/components/cartyApi", selectors = "resolve", extensions = "json")
 public class ResolveServlet extends SlingSafeMethodsServlet {
 
@@ -56,10 +58,7 @@ public class ResolveServlet extends SlingSafeMethodsServlet {
             final JsonObject n = new JsonObject();
             n.add("mapping", GSON.toJsonTree(m.getMapping()));
 
-            final String[] path = new String[3];
-            path[0] = parsedUrl.substring(0, m.getFrom());
-            path[1] = parsedUrl.substring(m.getFrom(), m.getTo());
-            path[2] = parsedUrl.substring(m.getTo());
+            final String[] path = multiSubstring(parsedUrl, m.getFrom(), m.getTo());
             n.add("path", GSON.toJsonTree(path));
             mappings.add(n);
         }

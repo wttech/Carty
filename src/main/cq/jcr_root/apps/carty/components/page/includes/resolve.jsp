@@ -4,9 +4,10 @@
       <h4>Path</h4>
       <input type="text" ng-model="form.path" />
     </div>
-    <!--div class="form-row" ng-if="form.showCustomHost">
+    <div class="form-row" ng-if="form.showCustomHost">
       <h4>Custom host</h4>
-      <input type="text" ng-model="form.host" placeholder="geometrixx.com"/>
+      <input type="text" ng-model="form.host" placeholder="geometrixx.com"/><br/>
+      You may also add scheme (<code>http://</code>).
     </div>
     <div class="form-row">
       <h4></h4>
@@ -14,7 +15,7 @@
         <input type="checkbox" ng-model="form.showCustomHost" />
         <span>Use custom host for the "Map" operation</span>
       </label>  
-    </div-->
+    </div>
     <div class="form-row">
       <div class="form-left-cell">&nbsp;</div>
       <button type="button" class="primary" ng-click="resolve()">Resolve</button>
@@ -92,23 +93,30 @@
     </div>
 
     <div ng-show="mapResult.mappings.length > 0">
-      <p>Mapping breakdown by their accuracy (the most accurate is the top one)</p>
+      <p>Mappings used to generate URL</p>
 
       <table class="data">
         <tr>
           <th>mapping name</th>
           <th>matching path part</th>
-          <th>mapped url</th>
+          <th>mapped url part</th>
         </tr>
 
         <tr ng-repeat="m in mapResult.mappings" ng-mouseenter="highlightMapping(m.mapping.path)" ng-mouseleave="clearMappingHighlight()">
           <td>{{m.mapping.name}}</td>
           <td>
-            <span class="path-breakdown">
+            <span class="path-breakdown" ng-show="m.matchingPath">
               <span class="selected">{{m.matchingPath[0]}}</span>{{m.matchingPath[1]}}
             </span>
+            <span ng-show="!m.matchingPath">
+              -
+            </span>
           </td>
-          <td>{{m.url}}</td>
+          <td>
+            <span class="path-breakdown">
+              {{m.url[0]}}<span class="selected">{{m.url[1]}}</span>{{m.url[2]}}
+            </span>
+          </td>
         </tr>
       </table>
     </div>

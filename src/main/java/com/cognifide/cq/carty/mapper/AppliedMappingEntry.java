@@ -10,10 +10,18 @@ public class AppliedMappingEntry {
 
     private final String url;
 
-    public AppliedMappingEntry(Mapping mapping, String matchingInternalRedirect, String url) {
+    private final AppliedMappingEntry parent;
+
+    public AppliedMappingEntry(Mapping mapping, String matchingInternalRedirect, String url,
+            AppliedMappingEntry parent) {
         this.mapping = mapping;
         this.matchingInternalRedirect = matchingInternalRedirect;
         this.url = url;
+        this.parent = parent;
+    }
+
+    public AppliedMappingEntry(Mapping mapping, String url, AppliedMappingEntry parent) {
+        this(mapping, null, url, parent);
     }
 
     public Mapping getMapping() {
@@ -25,6 +33,10 @@ public class AppliedMappingEntry {
     }
 
     public String getUrl() {
-        return url.replaceFirst("^/([^/]+)/", "$1://");
+        return url;
+    }
+
+    public AppliedMappingEntry getParent() {
+        return parent;
     }
 }
