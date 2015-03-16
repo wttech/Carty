@@ -102,9 +102,6 @@
       <li ng-repeat="item in mappings" ui-tree-node ng-include="'items_renderer.html'" ng-show="!item.isMapping || !showOnlyMatching || isMatchingPath(item.path)"></li>
     </ul>
   </div>
-  <div class="alert error" ng-show="errorMessage">
-    {{errorMessage}}
-  </div>
 
   <label ng-show="matchingPaths">
     <input type="checkbox" ng-model="showOnlyMatching" />

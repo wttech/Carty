@@ -24,7 +24,7 @@ angular.module('cartyApp')
       }).success(function(data) {
         $scope.resolveResult = data;
         setMatchingPaths(data);
-      });
+      }).error($rootScope.httpError);
     };
 
     $scope.map = function() {
@@ -41,7 +41,7 @@ angular.module('cartyApp')
       }).success(function(data) {
         $scope.mapResult = data;
         setMatchingPaths(data);
-      });
+      }).error($rootScope.httpError);
     };
 
     $scope.highlightMapping = function(path) {

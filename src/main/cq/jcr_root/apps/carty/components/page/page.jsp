@@ -34,6 +34,14 @@ pageContext.setAttribute("pagePath", resourceResolver.map(currentPage.getPath())
       <div class="content">
         <div class="content-container">
           <div class="content-container-inner">
+            <div class="alert large {{flash.class}}" ng-show="flash" id="top">
+                <button class="close" ng-click="flash = null">×</button>
+                <strong>{{flash.title}}</strong>
+                <div>
+                  {{flash.msg}}
+                </div>
+            </div>
+
             <img id="logo" src="/apps/carty/clientlibs/carty/img/logo-carty.png"/>
 
             <div class="section resolve-map">

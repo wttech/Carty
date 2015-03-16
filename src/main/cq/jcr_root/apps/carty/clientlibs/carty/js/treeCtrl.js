@@ -35,9 +35,9 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
             name = root.substring(i + 1);
         $scope.mappings = transform(data, {'path' : parent}, name).items;
         $scope.errorMessage = null;
-      }).error(function() {
+      }).error(function(err, status) {
         $scope.mappings = [];
-        $scope.errorMessage = "Can't load mappings from " + root;
+        $rootScope.httpError.apply(this, arguments);
       });
     }
 
@@ -61,7 +61,7 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
           });
           return str.join('&');
         }
-      });
+      }).error($rootScope.httpError);
     }
 
     function reorder(path, newIndex) {

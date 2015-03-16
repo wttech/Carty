@@ -9,6 +9,6 @@ angular.module('cartyApp')
         template: 'default'
       }).success(function(data) {
         $rootScope.$emit('reloadTree');
-      });
+      }).error($rootScope.httpError);
     };
 });
