@@ -10,6 +10,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
+import com.cognifide.cq.carty.CartyStringUtils;
 import com.cognifide.cq.carty.Mapping;
 
 public class CartyResolver {
@@ -23,20 +24,9 @@ public class CartyResolver {
         this.resolver = resolver;
     }
 
-    public ResolverResult resolve(String url) {
+    public ResolverResult resolve(String url) throws URISyntaxException {
         final Resource mapping = resolver.getResource(mappingsRoot);
-        final URI uri;
-        final String uriToParse;
-        try {
-            uri = new URI(url);
-            if (uri.getScheme() == null) {
-                uriToParse = null;
-            } else {
-                uriToParse = String.format("%s/%s%s", uri.getScheme(), uri.getHost(), uri.getPath());
-            }
-        } catch (URISyntaxException e) {
-            return null;
-        }
+        final String uriToParse = CartyStringUtils.urlToMappingForm(url);
 
         final List<AppliedResolutionEntry> applied = new ArrayList<AppliedResolutionEntry>();
 
@@ -47,12 +37,11 @@ public class CartyResolver {
         final AppliedResolutionEntry lastMapping = getLastValidEntry(applied);
         final Resource resource;
         if (lastMapping == null) {
-            resource = resolver.resolve(uri.getPath());
+            resource = resolver.resolve(new URI(url).getPath());
         } else {
             final String relPath = uriToParse.substring(lastMapping.getTo());
             resource = lastMapping.getResource(relPath, resolver);
         }
-
         return new ResolverResult(applied, uriToParse, resource);
     }
 

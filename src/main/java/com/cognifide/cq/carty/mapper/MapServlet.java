@@ -1,7 +1,6 @@
 package com.cognifide.cq.carty.mapper;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.rmi.ServerException;
 
@@ -11,6 +10,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 
+import com.cognifide.cq.carty.CartyStringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -52,7 +52,7 @@ public class MapServlet extends SlingSafeMethodsServlet {
         int i = 0;
         for (AppliedMappingEntry m : result.getMappings()) {
             final JsonObject n = new JsonObject();
-            final String urlPart = m.getMapping().getMatchOrName();
+            final String urlPart = m.getMapping().getUrlSegment();
             final String[] splitUrl = multiSubstring(result.getMappedUrl(), i, i + urlPart.length());
             i += urlPart.length() + 1; // "1" for the slash
 
@@ -68,7 +68,7 @@ public class MapServlet extends SlingSafeMethodsServlet {
         return json;
     }
 
-    private String prepareUrlPrefix(String host) {
+    private String prepareUrlPrefix(String host) throws URISyntaxException {
         final StringBuilder prefix = new StringBuilder();
         if (StringUtils.isBlank(host)) {
             return null;
@@ -81,14 +81,7 @@ public class MapServlet extends SlingSafeMethodsServlet {
         if ("/".equals(prefix.substring(lastChar))) {
             prefix.deleteCharAt(lastChar);
         }
-
-        final URI uri;
-        try {
-            uri = new URI(prefix.toString());
-        } catch (URISyntaxException e) {
-            return null;
-        }
-        return String.format("%s/%s", uri.getScheme(), uri.getHost());
+        return CartyStringUtils.urlToMappingForm(prefix.toString());
     };
 
     private static String getNiceUrl(String url) {

@@ -84,13 +84,7 @@ public class CartyMapper {
     }
 
     private String getUrl(Mapping mapping, String urlPrefix) {
-        final String urlSuffix;
-
-        if (StringUtils.isBlank(mapping.getMatch())) {
-            urlSuffix = mapping.getName();
-        } else {
-            urlSuffix = mapping.getMatch();
-        }
+        final String urlSuffix = mapping.getUrlSegment();
         if (StringUtils.isBlank(urlPrefix)) {
             return urlSuffix;
         } else {
