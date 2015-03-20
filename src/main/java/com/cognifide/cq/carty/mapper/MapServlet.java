@@ -3,6 +3,8 @@ package com.cognifide.cq.carty.mapper;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.ServerException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -85,6 +87,35 @@ public class MapServlet extends SlingSafeMethodsServlet {
     };
 
     private static String getNiceUrl(String url) {
-        return url.replaceFirst("^(https?)/(.+)\\$?$", "$1://$2");
+        final Matcher matcher = Pattern.compile("^(https?)/([^/]+)/(.*)").matcher(url);
+        if (matcher.matches()) {
+            final String schema = matcher.group(1);
+            final String hostWithPort = matcher.group(2);
+            final String rest = matcher.group(3);
+
+            final String host, port;
+            final Matcher hostMatcher = Pattern.compile("^(.+)\\.(\\d+)$").matcher(hostWithPort);
+            if (hostMatcher.matches()) {
+                host = hostMatcher.group(1);
+                port = hostMatcher.group(2);
+            } else {
+                host = hostWithPort;
+                port = null;
+            }
+
+            StringBuilder niceUrl = new StringBuilder();
+            niceUrl.append(schema).append("://").append(host);
+            boolean skipPort = false;
+            skipPort |= ("http".equals(schema) && "80".equals(port));
+            skipPort |= ("https".equals(schema) && "443".equals(port));
+            skipPort |= StringUtils.isBlank(port);
+            if (!skipPort) {
+                niceUrl.append(':').append(port);
+            }
+            niceUrl.append('/').append(rest);
+            return niceUrl.toString();
+        } else {
+            return url;
+        }
     }
 }

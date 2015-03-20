@@ -26,6 +26,8 @@ public class Mapping {
 
     private final boolean domainMapping;
 
+    private final int domainPort;
+
     private transient final Resource resource;
 
     public Mapping(final Resource resource) {
@@ -36,7 +38,21 @@ public class Mapping {
         this.internalRedirect = map.get("sling:internalRedirect", String[].class);
         this.redirect = map.get("sling:redirect", String.class);
         this.schemeMapping = ArrayUtils.contains(SUPPORTED_SCHEME, resource.getName());
-        this.domainMapping = ArrayUtils.contains(SUPPORTED_SCHEME, resource.getParent().getName());
+
+        final String parentName = resource.getParent().getName();
+        if (ArrayUtils.contains(SUPPORTED_SCHEME, parentName)) {
+            this.domainMapping = true;
+            if ("http".equals(parentName)) {
+                domainPort = 80;
+            } else if ("https".equals(parentName)) {
+                domainPort = 443;
+            } else {
+                domainPort = -1;
+            }
+        } else {
+            domainMapping = false;
+            domainPort = -1;
+        }
         this.resource = resource;
     }
 
@@ -44,8 +60,8 @@ public class Mapping {
         final StringBuilder regexp = new StringBuilder("/?");
         if (StringUtils.isBlank(getMatch())) {
             regexp.append(Pattern.quote(name));
-            if (domainMapping && !name.matches(".+\\.\\d+$")) {
-                regexp.append("\\.80");
+            if (domainPort != -1 && !name.matches(".+\\.\\d+$")) {
+                regexp.append("\\." + domainPort);
             }
         } else {
             regexp.append(match);
@@ -96,10 +112,10 @@ public class Mapping {
 
     public String getDomainNameWithPort() {
         final String domainName = getMatchOrDomain();
-        if (domainName.matches(".+\\.\\d+$")) {
+        if (domainName.matches(".+\\.\\d+$") || domainPort == -1) {
             return domainName;
         } else {
-            return domainName + ".80";
+            return domainName + "." + domainPort;
         }
     }
 

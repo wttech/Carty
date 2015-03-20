@@ -34,6 +34,10 @@ public class CartyResolver {
             applied.addAll(resolve(uriToParse, 0, mapping));
         }
 
+        if (applied.size() == 1) {
+            applied.clear();
+        }
+
         final AppliedResolutionEntry lastMapping = getLastValidEntry(applied);
         final Resource resource;
         if (lastMapping == null) {
