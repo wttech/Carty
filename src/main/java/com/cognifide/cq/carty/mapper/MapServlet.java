@@ -44,11 +44,12 @@ public class MapServlet extends SlingSafeMethodsServlet {
         final String path = request.getParameter("path");
         final String host = request.getParameter("host");
         final String mappingsRoot = request.getParameter("mappingsRoot");
+        final String urlPrefix = prepareUrlPrefix(host);
         final CartyMapper cartyResolver = new CartyMapper(mappingsRoot, request.getResourceResolver());
-        final MapperResult result = cartyResolver.map(path, prepareUrlPrefix(host));
+        final MapperResult result = cartyResolver.map(path, CartyStringUtils.urlToMappingForm(urlPrefix));
 
         final JsonObject json = new JsonObject();
-        json.addProperty("url", getNiceUrl(result.getMappedUrl()));
+        json.addProperty("url", StringUtils.removeStart(getNiceUrl(result.getMappedUrl()), urlPrefix));
         final JsonArray mappings = new JsonArray();
 
         int i = 0;
@@ -83,7 +84,7 @@ public class MapServlet extends SlingSafeMethodsServlet {
         if ("/".equals(prefix.substring(lastChar))) {
             prefix.deleteCharAt(lastChar);
         }
-        return CartyStringUtils.urlToMappingForm(prefix.toString());
+        return prefix.toString();
     };
 
     private static String getNiceUrl(String url) {
