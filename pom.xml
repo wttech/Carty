@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
@@ -108,10 +111,40 @@
                     <password>${instance.password}</password>
                 </configuration>
             </plugin>
+            <!-- jslint -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.1</version>
+                <groupId>com.googlecode.jslint4java</groupId>
+                <artifactId>jslint4java-maven-plugin</artifactId>
+                <version>2.0.2</version>
+                <executions>
+                    <!-- JSLint lincoln/base -->
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>lint</goal>
+                        </goals>
+                        <configuration>
+                            <failOnError>true</failOnError>
+                            <options>
+                                <!-- http://jslint4java.googlecode.com/svn/docs/2.0.0/apidocs/com/googlecode/jslint4java/Option.html -->
+                                <predef>_,$</predef>
+                                <eqeq>false</eqeq> <!-- If == should be allowed -->
+                                <white>true</white>  <!-- If sloppy whitespace is tolerated -->
+                                <sloppy>true</sloppy> <!-- If the 'use strict'; pragma is optional -->
+                                <plusplus>true</plusplus> <!-- i++ -->
+                                <regexp>true</regexp> <!-- Insecure '.' in reqexp -->
+                                <maxerr>10000</maxerr> <!-- max error before stop... -->
+                                <browser>true</browser> <!-- assuming browse, eg. window -->
+                                <devel>${lint.dev}</devel> <!--logging is allowed (console, alert, etc.) -->
+                                <maxlen>120</maxlen> <!-- The maximum length of a source line -->
+                                <nomen>true</nomen> <!-- If names may have dangling _ -->
+                            </options>
+                            <sourceFolders>
+                                <sourceFolder>${basedir}/src/main/cq/jcr_root/apps/carty/clientlibs/carty/js</sourceFolder>
+                            </sourceFolders>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
