@@ -1,6 +1,4 @@
-<%@include file="/libs/foundation/global.jsp"%><%
-pageContext.setAttribute("pagePath", resourceResolver.map(currentPage.getPath()));
-%><!doctype html>
+<%@include file="/libs/foundation/global.jsp"%><!doctype html>
 <html ng-app="cartyApp">
 <head>
 <meta charset="UTF-8">
@@ -11,7 +9,7 @@ pageContext.setAttribute("pagePath", resourceResolver.map(currentPage.getPath())
 <cq:includeClientLib css="carty" />
 <script>
   window.globalSettings = {
-    apiPath: '${pagePath}/api',
+    apiPath: '${currentPage.path}/api',
   };
 </script>
 </head>
