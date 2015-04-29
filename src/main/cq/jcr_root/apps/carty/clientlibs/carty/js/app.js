@@ -12,7 +12,7 @@ angular.module('cartyApp', ['xeditable', 'ui.tree', 'LocalStorageModule'])
   }, $window.globalSettings || {}, localStorageService.get('carty-settings'));
 
   $rootScope.showFlash = function(title, message, type) {
-    $rootScope.flash = { title: title, msg: message, class: type || 'notice' };
+    $rootScope.flash = { title: title, msg: message, 'class': type || 'notice' };
     $('.content-container').animate({scrollTop: 0});
   };
   
@@ -23,5 +23,5 @@ angular.module('cartyApp', ['xeditable', 'ui.tree', 'LocalStorageModule'])
       var $err = $('<div>').append(err);
       $rootScope.showFlash($err.find('title').text(), $err.find('p').text());
     }
-  }
+  };
 });
