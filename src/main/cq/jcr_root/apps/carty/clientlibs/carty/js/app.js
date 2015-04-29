@@ -1,10 +1,12 @@
 /*global angular: false */
 
 angular.module('cartyApp', ['xeditable', 'ui.tree', 'LocalStorageModule'])
-.factory('settings', function($rootScope) {
+.factory('settings', ['$rootScope',
+                      function($rootScope) {
   return $rootScope.settings;
-})
-.run(function(editableOptions, $rootScope, $window, localStorageService) {
+}])
+.run(['editableOptions', '$rootScope', '$window', 'localStorageService',
+      function(editableOptions, $rootScope, $window, localStorageService) {
   editableOptions.theme = 'default';
 
   $rootScope.settings = _.extend({
@@ -24,4 +26,4 @@ angular.module('cartyApp', ['xeditable', 'ui.tree', 'LocalStorageModule'])
       $rootScope.showFlash($err.find('title').text(), $err.find('p').text());
     }
   };
-});
+}]);

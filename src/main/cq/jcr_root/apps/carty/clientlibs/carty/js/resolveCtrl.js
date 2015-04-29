@@ -1,7 +1,8 @@
 /*global angular: false */
 
 angular.module('cartyApp')
-  .controller('ResolveCtrl', function($scope, $http, $rootScope, settings, localStorageService) {
+  .controller('ResolveCtrl', ['$scope', '$http', '$rootScope', 'settings', 'localStorageService',
+                              function($scope, $http, $rootScope, settings, localStorageService) {
 
     $scope.form = localStorageService.get('carty-form') || {};
 
@@ -51,4 +52,4 @@ angular.module('cartyApp')
     $scope.clearMappingHighlight = function() {
       $rootScope.$emit('clearMappingHighlight');
     };
-});
+}]);

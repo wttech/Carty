@@ -1,6 +1,7 @@
 /*global angular: false */
 
-angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeout, $rootScope, settings) {
+angular.module('cartyApp').controller('TreeCtrl', ['$scope', '$http', '$timeout', '$rootScope', 'settings',
+                                                   function($scope, $http, $timeout, $rootScope, settings) {
 
     var properties = ['match', 'internalRedirect', 'redirect', 'status'];
 
@@ -200,4 +201,4 @@ angular.module('cartyApp').controller('TreeCtrl', function($scope, $http, $timeo
     };
 
     loadMappings();
-});
+}]);

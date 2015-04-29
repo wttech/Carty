@@ -1,7 +1,8 @@
 /*global angular: false */
 
 angular.module('cartyApp')
-  .controller('SettingsCtrl', function($scope, $rootScope, localStorageService) {
+  .controller('SettingsCtrl', ['$scope', '$rootScope', 'localStorageService',
+                               function($scope, $rootScope, localStorageService) {
 
     $scope.settingsForm = $rootScope.settings;
 
@@ -11,4 +12,4 @@ angular.module('cartyApp')
       localStorageService.set('carty-settings', settings);
       $rootScope.$emit('reloadTree');
     };
-});
+}]);

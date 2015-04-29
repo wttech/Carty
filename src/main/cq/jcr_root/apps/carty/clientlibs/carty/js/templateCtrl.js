@@ -1,7 +1,8 @@
 /*global angular: false */
 
 angular.module('cartyApp')
-  .controller('TemplateCtrl', function($scope, $http, $rootScope, settings) {
+  .controller('TemplateCtrl', ['$scope', '$http', '$rootScope', 'settings',
+                               function($scope, $http, $rootScope, settings) {
     $scope.createFromTemplate = function() {
       $http.post(settings.apiPath + ".createMappings.json", {
         data: $scope.form,
@@ -11,4 +12,4 @@ angular.module('cartyApp')
         $rootScope.$emit('reloadTree');
       }).error($rootScope.httpError);
     };
-});
+}]);
