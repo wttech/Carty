@@ -14,7 +14,7 @@ angular.module('cartyApp', ['xeditable', 'ui.tree', 'LocalStorageModule'])
   }, $window.globalSettings || {}, localStorageService.get('carty-settings'));
 
   $rootScope.showFlash = function(title, message, type) {
-    $rootScope.flash = { title: title, msg: message, 'class': type || 'notice' };
+    $rootScope.flash = { title: title, msg: message, 'class': type || 'warning' };
     $('.content-container').animate({scrollTop: 0});
   };
   

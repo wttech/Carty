@@ -1,7 +1,7 @@
 /*global angular: false */
 
-angular.module('cartyApp').controller('TreeCtrl', ['$scope', '$http', '$timeout', '$rootScope', 'settings',
-                                                   function($scope, $http, $timeout, $rootScope, settings) {
+angular.module('cartyApp').controller('TreeCtrl', ['$scope', '$http', '$log', '$timeout', '$rootScope', 'settings',
+                                                   function($scope, $http, $log, $timeout, $rootScope, settings) {
 
     var properties = ['match', 'internalRedirect', 'redirect', 'status'];
 

@@ -2,24 +2,26 @@
   <form novalidate>
     <div class="form-row">
       <h4>Path</h4>
-      <input type="text" ng-model="form.path" />
+      <input type="text" class="coral-Textfield" ng-model="form.path" />
     </div>
     <div class="form-row" ng-if="form.showCustomHost">
       <h4>Custom host</h4>
-      <input type="text" ng-model="form.host" placeholder="geometrixx.com"/><br/>
+      <input type="text" class="coral-Textfield" ng-model="form.host" placeholder="geometrixx.com"/><br/>
       You may also add scheme (<code>http://</code>).
     </div>
     <div class="form-row">
       <h4></h4>
-      <label>
-        <input type="checkbox" ng-model="form.showCustomHost" />
-        <span>Use custom host for the "Map" operation</span>
-      </label>  
+      <coral-checkbox>
+        <input type="checkbox" class=" coral-Checkbox-input" ng-model="form.showCustomHost" id="showCustomHost"/>
+        <span class="coral-Checkbox-checkmark" handle="checkbox"></span>
+        <label class=" coral-Checkbox-description" handle="labelWrapper" for="showCustomHost">
+          <coral-checkbox-label>Use custom host for the "Map" operation</coral-checkbox-label></label>
+      </coral-checkbox>
     </div>
     <div class="form-row">
       <div class="form-left-cell">&nbsp;</div>
-      <button type="button" class="primary" ng-click="resolve()">Resolve</button>
-      <button type="button" class="warning" ng-click="map()">Map</button>
+      <button type="button" class="coral-Button coral-Button--primary" ng-click="resolve()">Resolve</button>
+      <button type="button" class="coral-Button coral-Button--warning" ng-click="map()">Map</button>
     </div>
   </form>
 
