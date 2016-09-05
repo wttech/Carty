@@ -16,7 +16,7 @@ Carty is an integrated tool to create, edit, review and test Sling mappings for 
 
 ## Prerequisites
 
-* CQ 5.6.1 or higher
+* AEM 6.2
 * Maven 3.x
 
 ## Installation
