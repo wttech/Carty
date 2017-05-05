@@ -16,7 +16,7 @@ Carty is an integrated tool to create, edit, review and test Sling mappings for 
 
 ## Prerequisites
 
-* AEM 6.2
+* AEM 6.2 or AEM 6.3
 * Maven 3.x
 
 ## Installation
@@ -27,7 +27,7 @@ Optionally, you may set Maven properties: `instance.url`, `instance.login` and `
 
 ## Usage
 
-Find Carty under the `/miscadmin`.
+Find Carty under the `/miscadmin` or /etc/carty.html.
 
 ## Screenshot
 
