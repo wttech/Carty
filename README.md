@@ -1,5 +1,3 @@
-![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
-
 ![Carty logo](http://cognifide.github.io/Carty/assets/media/logo-carty.png)
 
 ## Purpose
