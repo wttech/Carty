@@ -15,8 +15,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>Carty</name>
-    <description>Cognifide mapping tool</description>
-    <url>https://github.com/Cognifide/Carty</url>
+    <description>Wunderman Thompson Technology mapping tool</description>
+    <url>https://github.com/wttech/Carty</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,13 +26,13 @@
     </properties>
 
     <scm>
-        <connection>scm:git:ssh://git@github.com:Cognifide/Carty.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:Cognifide/Carty.git</developerConnection>
-        <url>https://github.com/Cognifide/Carty</url>
+        <connection>scm:git:ssh://git@github.com:wttech/Carty.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:wttech/Carty.git</developerConnection>
+        <url>https://github.com/wttech/Carty</url>
     </scm>
 
     <organization>
-        <name>Cognifide</name>
+        <name>Wunderman Thompson Technology</name>
         <url>http://www.cognifide.com</url>
     </organization>
 
